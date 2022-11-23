@@ -1,91 +1,63 @@
-import datetime
-import sqlite3
-from flask import Flask, render_template, request, url_for, flash, redirect, abort
+from flask import Flask, render_template, request, url_for, flash, redirect
+import json
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'f28a48dc958d1d9996e8deb44249692289783099f9e8743a'
+app.config['SECRET_KEY'] = '723a5f52d35b009faa65c12defc57f4363a1b6f80978aac4'
 
-def get_db_connection():
-    conn = sqlite3.connect('database.db')
-    conn.row_factory = sqlite3.Row
-    return conn
 
-def get_post(post_id):
-    conn = get_db_connection()
-    post = conn.execute('SELECT * FROM posts WHERE id = ?',
-                        (post_id,)).fetchone()
-    conn.close()
-    if post is None:
-        abort(404)
-    return post
+# with open('data.json') as json_file:
+#     data_json = json.load(json_file)
+ 
+#     # Print the type of data variable
+#     print("Type:", type(data_json))
+ 
+#     # Print the data of dictionary
+#     print("\ncards:", data_json['cards'])
 
 
 @app.route('/')
-def index():
-    conn = get_db_connection()
-    posts = conn.execute('SELECT * FROM posts').fetchall()
-    conn.close()
-    return render_template('index.html', posts=posts)
+def hello():
+    return render_template('index.html')
 
-@app.route('/about/')
+@app.route('/work')
+def work():
+    with open('data.json') as json_file:
+        data_json = json.load(json_file)
+    return render_template('work.html', cards=data_json["cards"])
+
+@app.route('/about')
 def about():
     return render_template('about.html')
 
-@app.route('/create/', methods=('GET', 'POST'))
-def create():
+@app.route('/admin/', methods=('GET', 'POST'))
+def admin():
+
+    with open('data.json') as json_file:
+        data_json = json.load(json_file)
+
     if request.method == 'POST':
+        image = request.form['image']
         title = request.form['title']
-        content = request.form['content']
+        material = request.form['material']
+        description = request.form['description']
+        #category = request.form['category']
 
-        if not title:
+        if not image:
+            flash('Image is required!')
+        elif not title:
             flash('Title is required!')
-        elif not content:
-            flash('Content is required!')
+        elif not material:
+            flash('Matrial is required!')
+        elif not description:
+            flash('Description is required!')
         else:
-            conn = get_db_connection()
-            conn.execute('INSERT INTO posts (title, content) VALUES (?, ?)',
-                         (title, content))
-            conn.commit()
-            conn.close()
-            return redirect(url_for('index'))
+            data_json['cards'].append({'image': image, 'title': title, 'material': material, 'description': description})
+            
+            with open("data.json", "w") as outfile:
+                json.dump(data_json, outfile)
 
-    return render_template('create.html')
-
-# @app.route('/<int:id>/edit/', methods=('GET', 'POST'))
-# def edit(id):
-#     post = get_post(id)
-
-#     if request.method == 'POST':
-#         title = request.form['title']
-#         content = request.form['content']
-
-#         if not title:
-#             flash('Title is required!')
-
-#         elif not content:
-#             flash('Content is required!')
-
-#         else:
-#             conn = get_db_connection()
-#             conn.execute('UPDATE posts SET title = ?, content = ?'
-#                          ' WHERE id = ?',
-#                          (title, content, id))
-#             conn.commit()
-#             conn.close()
-#             return redirect(url_for('index'))
-
-#     return render_template('edit.html', post=post)
-
-@app.route('/<int:id>/delete/', methods=('POST',))
-def delete(id):
-    post = get_post(id)
-    conn = get_db_connection()
-    conn.execute('DELETE FROM posts WHERE id = ?', (id,))
-    conn.commit()
-    conn.close()
-    flash('"{}" was successfully deleted!'.format(post['title']))
-    return redirect(url_for('index'))
+            print("\ncards:", data_json['cards'])
+            return redirect(url_for('work'))
 
 
-
-
+    return render_template('admin.html')

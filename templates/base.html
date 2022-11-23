@@ -1,77 +1,68 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
+  <title>Claudia Serrano – Work</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-
-
-    <title>{% block title %} {% endblock %} - FlaskApp</title>
-
-    <style>
-        .post {
-            padding: 20px;
-            margin: 5px;
-            background-color: #f3f3f3
-        }
-
-        .alert {
+	<style>
+		.alert {
             padding: 20px;
             margin: 5px;
             color: #970020;
-            background-color: #ffd5de;
-        }
-
-    </style>
+            background-color: #ffd5de;}
+	</style>
 
 </head>
-<body>
+
+<body class="pt-5">
+  <header>
+		<nav class="navbar fixed-top navbar-expand-lg bg-light ">
+			<div class="container-xl ">
+				<a class="navbar-brand" href="/"><h3 class="mb-0">CLAUDIA</h3></a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+					<div class="navbar-nav">
+						<a class="nav-link mx-3 active" aria-current="page" href="{{ url_for('work') }}">Work</a>
+						<a class="nav-link mx-3" href="{{ url_for('about') }}">About</a>
+					</div>
+				</div>
+			</div>
+		</nav>
 
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url_for('index') }}">FlaskApp</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('create') }}">Create</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('about') }}">About</a>
-            </li>
-        </ul>
-        </div>
-    </div>
-    </nav>
+  </header>
+  <main>
+	<div class="content">
+		{% for card in get_flashed_messages() %}
+			<div class="alert">{{ card }}</div>
+		{% endfor %}
 
-    <br>
+		{% block content %} {% endblock %}
 
-    <div class="content">
-	{% for message in get_flashed_messages() %}
-            <div class="alert">{{ message }}</div>
-        {% endfor %}
-	
-        {% block content %} {% endblock %}
-    </div>
+	</div>
 
-    
+  </main>
+  <footer>
+	<!-- place footer here -->
+  </footer>
 
-    <!-- Optional JavaScript -->
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-
- 
-
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+	integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+	integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+  </script>
 
 </body>
+
 </html>
-
-
-

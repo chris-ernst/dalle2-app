@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Add a New Image</h1>
+    <form method="post">
+
+        <label for="image">Image Upload</label>
+        <br>
+        <input type="text" name="image"
+               placeholder="Image Upload"
+               value="{{ request.form['image'] }}"></input>
+        <br>
+
+        <label for="title">Title</label>
+        <br>
+        <input type="text" name="title"
+               placeholder="Image title"
+               value="{{ request.form['title'] }}"></input>
+        <br>
+
+        <label for="material">Material</label>
+        <br>
+        <input type="text" name="material"
+               placeholder="Image Material and Year of Creation"
+               value="{{ request.form['material'] }}"></input>
+        <br>
+
+        <label for="description">Image Description</label>
+        <br>
+        <textarea name="description"
+                  placeholder="Image description here"
+                  rows="15"
+                  cols="60"
+                  value="{{ request.form['description'] }}">
+                </textarea>
+        <br>
+
+        <!-- <label for="category">Category</label>
+        <br>
+        <input type="text" name="category"
+               placeholder="Image Category"
+               value="{{ request.form['category'] }}"></input>
+        <br> -->
+
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}
