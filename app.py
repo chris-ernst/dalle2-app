@@ -29,14 +29,14 @@ def work():
 def about():
     return render_template('about.html')
 
-@app.route('/admin/', methods=('GET', 'POST'))
+@app.route('/36b96148e9a4', methods=('GET', 'POST'))
 def admin():
 
     with open('data.json') as json_file:
         data_json = json.load(json_file)
 
     if request.method == 'POST':
-        image = request.form['image']
+        image = request.form['my_file_input']
         title = request.form['title']
         material = request.form['material']
         description = request.form['description']
