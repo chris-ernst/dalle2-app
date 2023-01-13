@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <script>UPLOADCARE_PUBLIC_KEY = 'ecd13c8d09e1ab1d0465';</script>
+    <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>   
+
+    <div class="container-xl my-5 border border-primary p-3">
+
+        <h1 class="mt-3">{% block title %} Edit "{{ post['title'] }}" {% endblock %}</h1>
+
+        <form method="post">
+                
+            <!-- image upload -->
+            <div class="card mt-3" style="width: 18rem;">
+                <img class="card-img-top" src="{{ post['image'] | default('static/images/bg.jpg') }}" style="object-fit: cover" alt="Card image cap">
+
+                <div class="card-body">
+                    <label class="h3" for="my_file_input">Change image</label>
+                    <input class="" type="hidden" role="uploadcare-uploader" name="my_file_input" data-system-dialog="true"
+                    value="{{ request.form['my_file_input'] or post['my_file_input'] }}"/>
+                </div>
+
+            </div>
+
+            <br>
+            <!-- title input -->
+            <label class="h3 mt-3" for="title">Title</label>
+            <br>
+            <input type="text" name="title"
+                placeholder="Image title"
+                size="60"
+                value="{{ request.form['title'] or post['title'] }}"></input>
+            <br>
+
+            <!-- material input -->
+            <label class="h3 mt-4" for="material">Material</label>
+            <br>
+            <input type="text" name="material"
+                placeholder="Image Material and Year of Creation"
+                size="60"
+                value="{{ request.form['material'] or post['material'] }}"></input>
+            <br>
+
+            <!-- description input -->
+            <label class="h3 mt-4" for="description">Image Description</label>
+            <br>
+            <input type="text" name="description"
+                placeholder="Image description here"
+                size="60"
+                value="{{ request.form['description'] or post['description'] }}"></input>
+            <br>
+
+            <!-- <textarea name="description"
+                    placeholder="Image description here"
+                    rows="8"
+                    cols="60"
+                    value="{{ request.form['description'] or post['description'] }}">
+            </textarea>
+            <br> -->
+
+            <!-- <label for="category">Category</label>
+            <br>
+            <input type="text" name="category"
+                placeholder="Image Category"
+                value="{{ request.form['category'] }}"></input>
+            <br> -->
+
+            <button class="btn btn-primary mt-5" type="submit">Save</button>
+        </form>
+
+
+    </div>
+    
+{% endblock %}

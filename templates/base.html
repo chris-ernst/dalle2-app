@@ -12,12 +12,22 @@
 	integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
 	<style>
-		.alert {
+
+		/* .alert {
             padding: 20px;
             margin: 5px;
             color: #970020;
-            background-color: #ffd5de;}
+            background-color: #ffd5de;
+		} */
+
+		.card-img-top {
+		width: 100%;
+		height: 12rem;
+		object-fit: cover;
+		}
+
 	</style>
+
 
 </head>
 
@@ -31,7 +41,7 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 					<div class="navbar-nav">
-						<a class="nav-link mx-3 active" aria-current="page" href="{{ url_for('work') }}">Work</a>
+						<a class="nav-link mx-3" aria-current="page" href="{{ url_for('work') }}">Work</a>
 						<a class="nav-link mx-3" href="{{ url_for('about') }}">About</a>
 					</div>
 				</div>
@@ -43,7 +53,7 @@
   <main>
 	<div class="content">
 		{% for card in get_flashed_messages() %}
-			<div class="alert">{{ card }}</div>
+			<div class="alert alert-danger my-3">{{ card }}</div>
 		{% endfor %}
 
 		{% block content %} {% endblock %}

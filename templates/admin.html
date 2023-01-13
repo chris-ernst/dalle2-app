@@ -1,58 +1,54 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <div class="container-xl my-5">
 
-	<script>UPLOADCARE_PUBLIC_KEY = 'ecd13c8d09e1ab1d0465';</script>
-	<script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>   
+        <h1 class="my-5">Hi Clau! This is your Admin-Interface.</h1>
+        <div class="my-5">
+            <h5 class="">You can add a new post:</h5> 
+            <a class="btn btn-outline-success" href="{{ url_for('add_new') }}">New Image</a>
+        </div>
 
-	<div class="container-xl my-5 border border-primary p-3">
+        <h5 class="my-3">Or edit existing ones:</h5>
 
-		<h1>Add a New Image</h1>
+        <div class="d-flex flex-row flex-wrap justify-content-start">
 
-		<form method="post">
-		
-			<label class="h3 mt-4" for="my_file_input">Image File</label>
-			<br>
+            {% for post in posts %}
 
-			<input type="hidden" role="uploadcare-uploader" name="my_file_input" data-system-dialog="true"
-			value="{{ request.form['my_file_input'] }}"/>
-			
-			<br>
+            <div class="card text-center me-3 mb-3" style="width: 18rem;">
+                <img class="card-img-top" src="{{ post['image'] | default('static/images/bg.jpg') }}" style="object-fit: cover" alt="Card image cap">
+                <div class="card-body mt-3">
 
-			<label class="h3 mt-4" for="title">Title</label>
-			<br>
-			<input type="text" name="title"
-				placeholder="Image title"
-				size="60"
-				value="{{ request.form['title'] }}"></input>
-			<br>
+                    <div class="card-text">
+                        <h3 class="mb-3">{{ post['title'] }}</h3>
+                        <p class="fst-italic">{{ post['material'] }}</p>
+                        <p>{{ post['description'] }}</p>
+                        <p>{{ post['category'] }}</p>
+                    </div>
+                </div>
 
-			<label class="h3 mt-4" for="material">Material</label>
-			<br>
-			<input type="text" name="material"
-				placeholder="Image Material and Year of Creation"
-				size="60"
-				value="{{ request.form['material'] }}"></input>
-			<br>
+                <div class="card-footer bg-white">
+                    <a class="btn btn-outline-primary d-inline-block" href="{{ url_for('edit', id=post['id']) }}">Edit</a>
 
-			<label class="h3 mt-4" for="description">Image Description</label>
-			<br>
-			<textarea name="description"
-					placeholder="Image description here"
-					rows="8"
-					cols="60"
-					value="{{ request.form['description'] }}">
-				</textarea>
-			<br>
+                    <form class="d-inline" action="{{ url_for('delete', id=post['id']) }}" method="POST">
+                        <input class="btn btn-outline-danger" type="submit" value="Delete Post"
+                                onclick="return confirm('Are you sure you want to delete this post?')">
+                    </form>
+            
+                </div>
 
-			<!-- <label for="category">Category</label>
-			<br>
-			<input type="text" name="category"
-				placeholder="Image Category"
-				value="{{ request.form['category'] }}"></input>
-			<br> -->
+            </div>
 
-			<button class="btn btn-success mt-5" type="submit">Submit</button>
-		</form>
-	</div>
+            {% endfor %}
+
+        </div>
+    
+
+        
+
+
+
+    </div>
+    
+
 {% endblock %}

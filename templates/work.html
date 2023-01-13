@@ -2,17 +2,22 @@
 
 {% block content %}
 
-    <div class="container-xl">
+    <div class="container-xl mt-5">
 
-        {% for card in cards %}
+        <div class="text-center my-5">
+            <a class="btn btn-dark" href="{{ url_for('work') }}">List View</a>
+            <a class="btn btn-light ms-3" href="{{ url_for('work_grid') }}">Grid View</a>
+        </div>
+
+        {% for post in posts %}
 
         <div class="my-5 py-4">
-            <img src="{{ card['image'] | default('static/images/bg.jpg') }}" class="card-img align-items-center" style="max-height: 70vh; object-fit: contain; width: 100%;">
+            <img src="{{ post['image'] | default('static/images/bg.jpg') }}" class="post-img align-items-center" style="max-height: 70vh; object-fit: contain; width: 100%;">
             <div class="pt-4">
-                <h3 class="text-center">{{ card['title'] }}</h3>
-                <p class="text-center">{{ card['material'] }}</p>
-                <p class="text-center">{{ card['description'] }}</p>
-                <!-- <p class="text-center">{{ card['category'] }}</p> -->
+                <h1 class="text-center my-3">{{ post['title'] }}</h1>
+                <p class="text-center fst-italic">{{ post['material'] }}</p>
+                <p class="text-center">{{ post['description'] }}</p>
+                <!-- <p class="text-center">{{ post['category'] }}</p> -->
             </div>
         </div>
 
