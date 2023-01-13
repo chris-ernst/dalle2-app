@@ -25,14 +25,14 @@ def index():
 @app.route('/work')
 def work():
     conn = get_db_connection()
-    posts = conn.execute('SELECT * FROM posts').fetchall()
+    posts = conn.execute('SELECT * FROM posts ORDER BY id DESC').fetchall()
     conn.close()
     return render_template('work.html', posts=posts)
 
 @app.route('/work_grid')
 def work_grid():
     conn = get_db_connection()
-    posts = conn.execute('SELECT * FROM posts').fetchall()
+    posts = conn.execute('SELECT * FROM posts ORDER BY id DESC').fetchall()
     conn.close()
     return render_template('work_grid.html', posts=posts)
 
@@ -44,7 +44,7 @@ def about():
 @app.route('/36b96148e9a4')
 def admin():
     conn = get_db_connection()
-    posts = conn.execute('SELECT * FROM posts').fetchall()
+    posts = conn.execute('SELECT * FROM posts ORDER BY id DESC').fetchall()
     conn.close()
     return render_template('admin.html', posts=posts)
 
