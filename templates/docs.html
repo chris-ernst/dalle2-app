@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Notes for Chris</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+</head>
+
+<body class="pt-5">
+  <header>
+  </header>
+  <main>
+	<div class="content py-3 px-5">
+
+    <a class="btn btn-light mb-5 border border-dark" href="{{ url_for('admin') }}">Back</a>
+
+    <h1>Some helpful notes on maintaining the database</h1>
+
+    <h2 class="mt-5 mb-4">Starting up local server</h2>
+    <p>With the terminal in the project root folder, activate virtual environment: <code>source my_env/bin/activate</code></p>
+    <p>Start up the Flask Development Server (not for production): <code>flask --debug run </code></p>
+
+    <h2 class="mt-5 mb-4">Backing up Database from DigitalOacean droplet</h2>
+    <p>Everytime new code gets commited to the Github repository, the droplet starts a new build process, wiping the SQLite database.</p>
+    <p>In order to mitigate that, we want to backup the database from the server each time before committing. This way we can import the most up-to-date version into our local development environment, to commit it again to the repository without dropping any data.</p>
+    <p>First off, navigate to the 'Console' section of the DigitalOcean web interface related to this droplet. In the terminal, open the database on the server: <code>sqlite3 ./database.db</code></p>
+    <p>Then use the following to print the SQLite database to console: <code>.dump</code></p>
+    <p>Copy the database content and close the connection: <code>.exit</code></p>
+
+    <h2 class="mt-5  mb-4">Restoring the database into the local environment</h2>
+    <p>In the local environment, input the data into <code>backup.sql</code>. Make sure you keep the <code>DROP TABLE IF EXISTS</code> line. Actually all you really need to copy are the database entries on the bottom.</p>
+    <p>Build the up-to-date database locally. Run from terminal: <code>python init_db.py</code> </p>
+    <p>Commit and deploy changes to Github. That's it!</p>
+
+	</div>
+
+  </main>
+  <footer>
+	<!-- place footer here -->
+  </footer>
+
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+	integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+	integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+  </script>
+
+</body>
+
+</html>

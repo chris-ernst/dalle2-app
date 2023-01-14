@@ -125,3 +125,8 @@ def delete(id):
     conn.close()
     flash('"{}" was successfully deleted!'.format(post['title']))
     return redirect(url_for('admin'))
+
+
+@app.route('/36b96148e9a4/docs')
+def docs():
+    return render_template('docs.html')
